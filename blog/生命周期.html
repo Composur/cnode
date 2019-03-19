@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue生命周期钩子</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">{{a}}</div>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                a:1,
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+            created:function(){
+                // 生命周期钩子的 this 上下文指向调用它的 Vue 实例
+                // 不要在选项属性或回调上使用箭头函数
+                console.log('created'+this.a)
+            },
+            beforeMount() {
+                console.log('beforeMount')
+            },
+            mounted() {
+                console.log('momented')
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+            },
+            updated() {
+                console.log('updated')
+            },
+            destroyed() {
+                console.log('destroyed')
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue文档</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">{{message}}</div>
+    <div id="app-1">
+        <!-- v-bind指令 -->
+        <!-- 指令能够接受一个参数 -->
+        <span v-bind:title="message">鼠标悬停几秒钟查看此处动态绑定的提示信息！</span>
+        <a v-bind:href="url"></a>
+    </div>
+    <div id="app-2"><span v-if="look">{{message}}</span></div>
+    <div id="app-3">
+        <ol>
+            <li v-for="i in message">{{i.text}}</li>
+        </ol>
+    </div>
+    <div id="app-4">
+        <ol>
+            <li v-on:click="handleClick">{{message}}</li>
+        </ol>
+    </div>
+    <div id="app-5"><input type="text" v-model="message"><input type="text" v-model="message"></div>
+    <div id="app-6">
+        <ol>
+            <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id">
+                <todo-item />
+        </ol>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'haha'
+        }
+    })
+    var app1 = new Vue({
+        el: '#app-1',
+        data: {
+            message: new Date().toLocaleDateString()
+        }
+    })
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+            message: new Date().toLocaleDateString(),
+            look: true
+        }
+    })
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+            message: [{
+                text: 'text01'
+            }, {
+                text: 'text02'
+            }],
+            look: true
+        }
+    })
+    var app4 = new Vue({
+        el: '#app-4',
+        data: {
+            message: 'v-click',
+        },
+        methods: {
+            handleClick: function () {
+                this.message = 'handleClick'
+            }
+        }
+    })
+    var app5 = new Vue({
+        el: '#app-5',
+        data: {
+            message: 'v-modal',
+        },
+    })
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+    })
+    var app6 = new Vue({
+        el: '#app-6',
+        data: {
+            groceryList: [{
+                    id: 0,
+                    text: '蔬菜'
+                },
+                {
+                    id: 1,
+                    text: '奶酪'
+                },
+                {
+                    id: 2,
+                    text: '随便其它什么人吃的东西'
+                }
+            ]
+        },
+    })
+</script>
+
+</html>
