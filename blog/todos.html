@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todos</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form v-on:submit.prevent="addTodo">
+            <label>
+                <input type="text"  v-model="inputValue">
+            </label>
+            <button>add</button>
+        </form>
+        <ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul>
+    </div>
+</body>
+<script>
+    var app=new Vue({
+        el:'#app',
+        data:{
+            inputValue:'',
+            todos:[{id:1,content:'哈哈'}],
+            todoItemID:1
+        },
+        methods: {
+            addTodo:function(){
+                if(this.inputValue){
+                 this.todos.push({id:this.todoItemID++,content:this.inputValue})
+                 console.log()
+                 this.inputValue=''
+                }
+            },
+            remove:function(){
+                this.todos.splice(this.index,1)
+            }
+        },
+    })
+</script>
+</html>
