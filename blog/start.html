@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="app">{{message}}</div>
+    <div id="app"><ol v-for="(item, index) in items" :key="index"><li>{{item}}</li></ol></div>
     <div id="app-1">
         <!-- v-bind指令 -->
         <!-- 指令能够接受一个参数 -->
@@ -40,13 +40,16 @@
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'haha'
+            message: 'haha',
+            items: [ 1, 2, 3, 4, 5 ]
         }
     })
     var app1 = new Vue({
         el: '#app-1',
         data: {
-            message: new Date().toLocaleDateString()
+            message: new Date().toLocaleDateString(),
+            items: [ 1, 2, 3, 4, 5 ],
+            url:'/'
         }
     })
     var app2 = new Vue({
