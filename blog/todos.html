@@ -15,10 +15,15 @@
             </label>
             <button>add</button>
         </form>
-        <ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul>
+        <!-- <ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul> -->
+        <to-do-item></to-do-item>
     </div>
 </body>
 <script>
+     Vue.component('to-do-item',{
+        props:['todos'],
+        template:'<ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul>',
+    })
     var app=new Vue({
         el:'#app',
         data:{
@@ -39,5 +44,6 @@
             }
         },
     })
+   
 </script>
 </html>
