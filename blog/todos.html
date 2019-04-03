@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +8,64 @@
     <title>todos</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
     <div id="app">
         <form v-on:submit.prevent="addTodo">
             <label>
-                <input type="text"  v-model="inputValue">
+                <input type="text" v-model="inputValue">
             </label>
             <button>add</button>
         </form>
-        <!-- <ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul> -->
-        <to-do-item></to-do-item>
+        <ul>
+            <li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button
+                    v-on:click="todos.splice(index,1)">remove</button></li>
+        </ul>
+        <!-- <to-do-item></to-do-item> -->
+        <alert-box v-if="error">vue自定义的slot(插槽)</alert-box>
     </div>
 </body>
 <script>
-     Vue.component('to-do-item',{
-        props:['todos'],
-        template:'<ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul>',
+    Vue.component('to-do-item', {
+        props: ['todos'],
+        template: `<ul><li v-for="(item, index) in todos" :key="index" v-on:remove="todos.splice(index,1)">{{item.content}}<button v-on:click="todos.splice(index,1)">remove</button></li></ul>`,
     })
-    var app=new Vue({
-        el:'#app',
-        data:{
-            inputValue:'',
-            todos:[{id:1,content:'哈哈'}],
-            todoItemID:1
+    Vue.component('alert-box', {
+        template: `
+            <div class="demo-alert-box">
+            <strong>Error!</strong>
+            <slot>j'j</slot>
+            </div>
+        `
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            inputValue: '',
+            todos: [{
+                id: 1,
+                content: '哈哈'
+            }],
+            todoItemID: 1,
+            error: false
         },
         methods: {
-            addTodo:function(){
-                if(this.inputValue){
-                 this.todos.push({id:this.todoItemID++,content:this.inputValue})
-                 console.log()
-                 this.inputValue=''
-                }
-            },
-            remove:function(){
-                this.todos.splice(this.index,1)
+            addTodo: function () {
+                if (this.inputValue) {
+                    this.todos.push({
+                        id: this.todoItemID++,
+                        content: this.inputValue
+                    })
+                    this.inputValue = ''
+                    this.error = false
+                } else
+                    this.error = true
             }
         },
+        remove: function () {
+            this.todos.splice(this.index, 1)
+        }
     })
-   
 </script>
+
 </html>
